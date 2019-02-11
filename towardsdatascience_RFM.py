@@ -8,6 +8,7 @@ warnings.filterwarnings('ignore')
 # The dataset contains all the transactions occurring between 01/12/2010 and 09/12/2011
 # for a UK-based and registered online retailer.
 df = pd.read_excel("OnlineRetail.xlsx")
+#df[list('CustomerID')] = df[list('CustomerID')].astype(int)
 
 print(df.head())
 # df0 = df
@@ -123,10 +124,22 @@ segmented_rfm['RFMScore'] = segmented_rfm.r_quartile.map(str) \
                             + segmented_rfm.m_quartile.map(str)
 
 # print(" \n SEGMENTED RFM: \n", segmented_rfm.head())
-#i
+
+
 # find out top 10 of our best customers
 print(" \n TOP 10 CUSTOMERS FROM SEGMENTED RFM: \n",
       segmented_rfm[segmented_rfm['RFMScore'] == '111'].sort_values('monetary_value', ascending=False).head(10))
+
+
+
+cluster_df = segmented_rfm[['r_quartile', 'f_quartile', 'm_quartile']]
+
+print(" \n ******** \n CLUSTER SEGMENTED RFM: \n ********** \n ",
+      cluster_df.head(10))
+
+
+
+
 
 
 
