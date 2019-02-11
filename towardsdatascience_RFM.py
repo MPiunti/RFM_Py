@@ -180,12 +180,12 @@ kmeans = KMeans(n_clusters=N_CL, random_state=10)
 kmeans.fit(cluster_df)
 y_kmeans = kmeans.predict(cluster_df)
 
-cluster_df['cluster'] = y_kmeans
+cluster_df['kmeans_cluster'] = y_kmeans
 
 print(" \n ******** \n CLUSTER SEGMENTED RFM: \n ********** \n ",
       cluster_df.head(10))
 
 
-
+print(cluster_df.groupby(['kmeans_cluster']).size() )
 
 
