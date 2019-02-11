@@ -123,8 +123,7 @@ segmented_rfm['RFMScore'] = segmented_rfm.r_quartile.map(str) \
                             + segmented_rfm.m_quartile.map(str)
 
 # print(" \n SEGMENTED RFM: \n", segmented_rfm.head())
-# ciao
-
+#i
 # find out top 10 of our best customers
 print(" \n TOP 10 CUSTOMERS FROM SEGMENTED RFM: \n",
       segmented_rfm[segmented_rfm['RFMScore'] == '111'].sort_values('monetary_value', ascending=False).head(10))
