@@ -3,6 +3,10 @@ import pandas as pd
 import warnings
 import datetime as dt
 
+
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()  # for plot styling
+
 warnings.filterwarnings('ignore')
 
 # The dataset contains all the transactions occurring between 01/12/2010 and 09/12/2011
@@ -137,12 +141,49 @@ cluster_df = segmented_rfm[['r_quartile', 'f_quartile', 'm_quartile']]
 print(" \n ******** \n CLUSTER SEGMENTED RFM: \n ********** \n ",
       cluster_df.head(10))
 
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_samples, silhouette_score
+
+# numero di cluster ipotizzabili
+scores = pd.DataFrame()
+scores['n_clusters'] = [3, 4, 5, 6, 7]
+
+for k in scores['n_clusters']:
+    # Create a kmeans model on our data, using k clusters.  random_state helps ensure that the algorithm returns the same results each time.
+    kmeans_model = KMeans(n_clusters=k, random_state=10).fit(cluster_df.iloc[:, :])
+
+    # These are our fitted labels for clusters -- the first cluster has label 0, and the second has label 1.
+    labels = kmeans_model.labels_
+
+    # Sum of distances of samples to their closest cluster center
+    inertia= kmeans_model.inertia_
+    print("n_clusters:", k, " cost:", inertia / 10000000000)
+    scores.loc[scores['n_clusters'] == k, 'score'] = inertia / 10000000000
+
+
+plt.plot(scores['n_clusters'], scores['score'])
+
+#plt.plot(scores) # plotting by columns
+plt.title('The Elbow Method')
+plt.xlabel('Number of clusters K')
+plt.ylabel('Average Within-Cluster distance to Centroid (WCSS)')
+plt.show()
 
 
 
 
 
 
+# fissiamo N CLUSTERS:
+N_CL=6
+kmeans = KMeans(n_clusters=N_CL, random_state=10)
+kmeans.fit(cluster_df)
+y_kmeans = kmeans.predict(cluster_df)
+
+cluster_df['cluster'] = y_kmeans
+
+print(" \n ******** \n CLUSTER SEGMENTED RFM: \n ********** \n ",
+      cluster_df.head(10))
 
 
 
