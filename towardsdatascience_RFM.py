@@ -172,8 +172,6 @@ plt.show()
 
 
 
-
-
 # fissiamo N CLUSTERS:
 N_CL=6
 kmeans = KMeans(n_clusters=N_CL, random_state=10)
