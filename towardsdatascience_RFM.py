@@ -1,9 +1,7 @@
-
 import pandas as pd
 import warnings
 import datetime as dt
 import numpy as np
-
 
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()  # for plot styling
@@ -189,5 +187,5 @@ print(cluster_df.groupby(['kmeans_cluster']).size())
 
 # cluster centers
 centers = np.array(kmeans_model.cluster_centers_)
-print(" Centers:  ", centers)
+print(" Centers:  \n", centers)
 
