@@ -2,6 +2,7 @@
 import pandas as pd
 import warnings
 import datetime as dt
+import numpy as np
 
 
 import matplotlib.pyplot as plt
@@ -173,7 +174,7 @@ plt.show()
 
 
 # fissiamo N CLUSTERS:
-N_CL=6
+N_CL = 6
 kmeans = KMeans(n_clusters=N_CL, random_state=10)
 kmeans.fit(cluster_df)
 y_kmeans = kmeans.predict(cluster_df)
@@ -184,6 +185,9 @@ print(" \n ******** \n CLUSTER SEGMENTED RFM: \n ********** \n ",
       cluster_df.head(10))
 
 
-print(cluster_df.groupby(['kmeans_cluster']).size() )
+print(cluster_df.groupby(['kmeans_cluster']).size())
 
+# cluster centers
+centers = np.array(kmeans_model.cluster_centers_)
+print(" Centers:  ", centers)
 
